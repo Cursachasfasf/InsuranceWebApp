@@ -1,0 +1,112 @@
+﻿@model IEnumerable<InsuranceWebApp.Models.Client>
+
+@{
+    ViewData["Title"] = "Клиенты";
+}
+
+<style>
+    /* Принудительные стили для кнопок – перебивают любые глобальные стили */
+    .btn-custom {
+        display: inline-block !important;
+        padding: 6px 12px !important;
+        margin: 4px 4px !important;
+        font-size: 14px !important;
+        font-weight: normal !important;
+        line-height: 1.5 !important;
+        text-align: center !important;
+        text-decoration: none !important;
+        cursor: pointer !important;
+        border-radius: 4px !important;
+        border: 1px solid transparent !important;
+        color: #fff !important;
+        background-color: #0d6efd !important;
+        border-color: #0d6efd !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+
+    .btn-custom-primary {
+        background-color: #0d6efd !important;
+        border-color: #0d6efd !important;
+    }
+
+    .btn-custom-info {
+        background-color: #0dcaf0 !important;
+        border-color: #0dcaf0 !important;
+        color: #000 !important;
+    }
+
+    .btn-custom-danger {
+        background-color: #dc3545 !important;
+        border-color: #dc3545 !important;
+    }
+
+    .btn-custom-success {
+        background-color: #198754 !important;
+        border-color: #198754 !important;
+    }
+
+    .btn-custom-sm {
+        padding: 4px 8px !important;
+        font-size: 12px !important;
+    }
+
+    .btn-custom:hover {
+        filter: brightness(0.9) !important;
+        cursor: pointer !important;
+    }
+    /* Дополнительная защита от блокировки кликов */
+    a, button {
+        pointer-events: auto !important;
+    }
+</style>
+
+<h1>Клиенты</h1>
+
+<p>
+    <a asp-action="Create" class="btn-custom btn-custom-success">+ Добавить клиента</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Телефон</th>
+            <th>Адрес</th>
+            <th>Email</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Step_Name</td>
+                <td>@item.S_Step_Name</td>
+                <td>@item.phone</td>
+                <td>@item.address</td>
+                <td>@item.email</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.client_id" class="btn-custom btn-custom-primary btn-custom-sm">✏️ Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.client_id" class="btn-custom btn-custom-info btn-custom-sm">📄 Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.client_id" class="btn-custom btn-custom-danger btn-custom-sm">🗑️ Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    // Дополнительный скрипт, который принудительно убирает любые блокировки
+    document.addEventListener('DOMContentLoaded', function() {
+        var allLinks = document.querySelectorAll('a');
+        allLinks.forEach(function(link) {
+            link.removeAttribute('disabled');
+            link.style.pointerEvents = 'auto';
+            link.style.opacity = '1';
+        });
+    });
+</script>

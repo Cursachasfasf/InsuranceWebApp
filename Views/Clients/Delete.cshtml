@@ -1,0 +1,35 @@
+﻿@model InsuranceWebApp.Models.Client
+
+@{
+    ViewData["Title"] = "Удалить клиента";
+    Layout = "_Layout";
+}
+
+<h1>Удалить клиента</h1>
+
+<div class="alert alert-warning" style="background-color: #fef0f0; border: none; border-radius: 20px;">
+    <strong>Внимание!</strong> Вы уверены, что хотите удалить этого клиента? Действие необратимо.
+</div>
+
+<div class="card p-4" style="background-color: #fffcfc; border-radius: 24px;">
+    <dl class="row">
+        <dt class="col-sm-3">Имя</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+        <dt class="col-sm-3">Фамилия</dt>
+        <dd class="col-sm-9">@Model.Step_Name</dd>
+        <dt class="col-sm-3">Отчество</dt>
+        <dd class="col-sm-9">@(Model.S_Step_Name ?? "—")</dd>
+        <dt class="col-sm-3">Телефон</dt>
+        <dd class="col-sm-9">@Model.phone</dd>
+        <dt class="col-sm-3">Адрес</dt>
+        <dd class="col-sm-9">@Model.address</dd>
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">@(Model.email ?? "—")</dd>
+    </dl>
+</div>
+
+<form method="post" action="/Clients/DeleteConfirmed/@Model.client_id" class="mt-4">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">🗑️ Удалить</button>
+    <a href="/Clients" class="btn btn-secondary">Отмена</a>
+</form>

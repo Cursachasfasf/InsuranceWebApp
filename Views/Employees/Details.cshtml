@@ -1,0 +1,37 @@
+﻿@model InsuranceWebApp.Models.Employee
+
+@{
+    ViewData["Title"] = "Детали сотрудника";
+}
+
+<h1>Детали сотрудника</h1>
+
+<div class="card p-4" style="background-color: #fffcfc; border-radius: 24px;">
+    <dl class="row">
+        <dt class="col-sm-3">Имя</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+
+        <dt class="col-sm-3">Фамилия</dt>
+        <dd class="col-sm-9">@Model.Step_Name</dd>
+
+        <dt class="col-sm-3">Отчество</dt>
+        <dd class="col-sm-9">@(Model.S_Step_Name ?? "—")</dd>
+
+        <dt class="col-sm-3">Должность</dt>
+        <dd class="col-sm-9">@Model.position</dd>
+
+        <dt class="col-sm-3">Телефон</dt>
+        <dd class="col-sm-9">@Model.phone</dd>
+
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">@(Model.email ?? "—")</dd>
+
+        <dt class="col-sm-3">Дата найма</dt>
+        <dd class="col-sm-9">@Model.hire_date.ToString("yyyy-MM-dd")</dd>
+    </dl>
+</div>
+
+<div class="mt-4">
+    <a href="/Employees/Edit/@Model.employee_id" class="btn btn-primary">Редактировать</a>
+    <a href="/Employees" class="btn btn-secondary">Назад</a>
+</div>

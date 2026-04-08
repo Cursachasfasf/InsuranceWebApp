@@ -1,0 +1,21 @@
+﻿@model InsuranceWebApp.Models.Contract
+
+@{
+    ViewData["Title"] = "Удалить договор";
+}
+
+<h1>Удалить договор</h1>
+<div class="alert alert-danger">
+    <h3>Вы уверены?</h3>
+</div>
+<dl class="row">
+    <dt class="col-sm-2">Номер</dt>
+    <dt class="col-sm-2">Клиент</dt>
+    <dd class="col-sm-10">@Model.Client?.Name @Model.Client?.Step_Name</dd>
+    <dt class="col-sm-2">Страховая сумма</dt>
+    <dd class="col-sm-10">@Model.insurance_amount</dd>
+</dl>
+<form asp-action="DeleteConfirmed" asp-route-id="@Model.contract_id">
+    <input type="submit" value="Удалить" class="btn btn-danger" />
+    <a asp-action="Index" class="btn btn-secondary">Отмена</a>
+</form>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<InsuranceWebApp.Models.Client>
+
+@{
+    ViewData["Title"] = "Клиенты";
+    Layout = "_Layout";
+}
+
+<h1>Клиенты</h1>
+
+<p>
+    <a href="/Clients/Create" class="btn btn-success">+ Добавить клиента</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Отчество</th>
+                <th>Телефон</th>
+                <th>Адрес</th>
+                <th>Email</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Step_Name</td>
+                    <td>@item.S_Step_Name</td>
+                    <td>@item.phone</td>
+                    <td>@item.address</td>
+                    <td>@item.email</td>
+                    <td>
+                        <a href="/Clients/Edit/@item.client_id" class="btn btn-sm btn-primary">Редактировать</a>
+                        <a href="/Clients/Details/@item.client_id" class="btn btn-sm btn-info">Детали</a>
+                        <a href="/Clients/Delete/@item.client_id" class="btn btn-sm btn-danger">Удалить</a>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>

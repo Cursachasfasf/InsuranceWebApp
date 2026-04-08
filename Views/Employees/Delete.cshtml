@@ -1,0 +1,36 @@
+﻿@model InsuranceWebApp.Models.Employee
+
+@{
+    ViewData["Title"] = "Удалить сотрудника";
+}
+
+<h1>Удалить сотрудника</h1>
+
+<div class="alert alert-warning" style="background-color: #fef0f0; border: none; border-radius: 20px;">
+    <strong>Внимание!</strong> Вы уверены, что хотите удалить этого сотрудника? Действие необратимо.
+</div>
+
+<div class="card p-4" style="background-color: #fffcfc; border-radius: 24px;">
+    <dl class="row">
+        <dt class="col-sm-3">Имя</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+        <dt class="col-sm-3">Фамилия</dt>
+        <dd class="col-sm-9">@Model.Step_Name</dd>
+        <dt class="col-sm-3">Отчество</dt>
+        <dd class="col-sm-9">@(Model.S_Step_Name ?? "—")</dd>
+        <dt class="col-sm-3">Должность</dt>
+        <dd class="col-sm-9">@Model.position</dd>
+        <dt class="col-sm-3">Телефон</dt>
+        <dd class="col-sm-9">@Model.phone</dd>
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">@(Model.email ?? "—")</dd>
+        <dt class="col-sm-3">Дата найма</dt>
+        <dd class="col-sm-9">@Model.hire_date.ToString("yyyy-MM-dd")</dd>
+    </dl>
+</div>
+
+<form method="post" action="/Employees/DeleteConfirmed/@Model.employee_id" class="mt-4">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">🗑️ Удалить</button>
+    <a href="/Employees" class="btn btn-secondary">Отмена</a>
+</form>

@@ -1,0 +1,35 @@
+﻿@model InsuranceWebApp.Models.Client
+
+@{
+    ViewData["Title"] = "Детали клиента";
+    Layout = "_Layout";
+}
+
+<h1>Детали клиента</h1>
+
+<div class="card p-4" style="background-color: #fffcfc; border-radius: 24px;">
+    <dl class="row">
+        <dt class="col-sm-3">Имя</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+
+        <dt class="col-sm-3">Фамилия</dt>
+        <dd class="col-sm-9">@Model.Step_Name</dd>
+
+        <dt class="col-sm-3">Отчество</dt>
+        <dd class="col-sm-9">@(Model.S_Step_Name ?? "—")</dd>
+
+        <dt class="col-sm-3">Телефон</dt>
+        <dd class="col-sm-9">@Model.phone</dd>
+
+        <dt class="col-sm-3">Адрес</dt>
+        <dd class="col-sm-9">@Model.address</dd>
+
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">@(Model.email ?? "—")</dd>
+    </dl>
+</div>
+
+<div class="mt-4">
+    <a href="/Clients/Edit/@Model.client_id" class="btn btn-primary">Редактировать</a>
+    <a href="/Clients" class="btn btn-secondary">Назад</a>
+</div>

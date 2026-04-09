@@ -1,0 +1,22 @@
+﻿@model InsuranceWebApp.Models.Payment
+
+@{
+    ViewData["Title"] = "Удалить платёж";
+    Layout = "_Layout";
+}
+
+<h1>Удалить платёж</h1>
+<div class="alert alert-danger">
+    <h3>Вы уверены, что хотите удалить этот платёж?</h3>
+</div>
+<dl class="row">
+    <dt class="col-sm-2">Договор</dt>
+    <dd class="col-sm-10">@Model.contract_id</dd>
+    <dt class="col-sm-2">Сумма</dt>
+    <dd class="col-sm-10">@Model.amount</dd>
+</dl>
+<form method="post" action="/Payments/Delete/@Model.payment_id">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Удалить</button>
+    <a href="/Payments" class="btn btn-secondary">Отмена</a>
+</form>

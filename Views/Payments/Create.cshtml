@@ -1,0 +1,46 @@
+﻿@model InsuranceWebApp.Models.Payment
+
+@{
+    ViewData["Title"] = "Добавить платёж";
+    Layout = "_Layout";
+}
+
+<h1>Добавить платёж</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" action="/Payments/Create">
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label class="control-label">Номер договора</label>
+                <input name="contract_id" class="form-control" type="number" required placeholder="Введите contract_id" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Дата платежа</label>
+                <input name="payment_date" class="form-control" type="date" required />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Сумма</label>
+                <input name="amount" class="form-control" step="0.01" required />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Тип платежа</label>
+                <input name="payment_type" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Статус</label>
+                <input name="status" class="form-control" required />
+            </div>
+
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Создать</button>
+                <a href="/Payments" class="btn btn-secondary">Назад</a>
+            </div>
+        </form>
+    </div>
+</div>

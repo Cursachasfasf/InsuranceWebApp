@@ -1,0 +1,42 @@
+﻿@model IEnumerable<InsuranceWebApp.Models.Payout>
+
+@{
+    ViewData["Title"] = "Выплаты";
+    Layout = "_Layout";
+}
+
+<h1>Страховые выплаты</h1>
+<p>
+    <a href="/Payouts/Create" class="btn btn-success">+ Добавить выплату</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID выплаты</th>
+                <th>Страх. ситуация (ID)</th>
+                <th>Дата выплаты</th>
+                <th>Сумма</th>
+                <th>Способ оплаты</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.payout_id</td>
+                    <td>@item.situation_id</td>
+                    <td>@item.payout_date.ToShortDateString()</td>
+                    <td>@item.payout_amount.ToString("C")</td>
+                    <td>@item.payment_method</td>
+                    <td>
+                        <a href="/Payouts/Edit/@item.payout_id" class="btn btn-sm btn-primary">Ред.</a>
+                        <a href="/Payouts/Details/@item.payout_id" class="btn btn-sm btn-info">Дет.</a>
+                        <a href="/Payouts/Delete/@item.payout_id" class="btn btn-sm btn-danger">Уд.</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

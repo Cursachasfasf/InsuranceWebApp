@@ -2,22 +2,24 @@
 
 @{
     ViewData["Title"] = "Детали договора";
+    Layout = "_Layout";
 }
 
 <h1>Детали договора</h1>
 <hr />
 <dl class="row">
-    <dt class="col-sm-2">Номер</dt>
-    <dt class="col-sm-2">Клиент</dt>
-    <dd class="col-sm-10">@Model.Client?.Name @Model.Client?.Step_Name</dd>
-    <dt class="col-sm-2">Продукт</dt>
-    <dd class="col-sm-10">@Model.Product?.Name</dd>
-    <dt class="col-sm-2">Сотрудник</dt>
-    <dd class="col-sm-10">@Model.Employee?.Name @Model.Employee?.Step_Name</dd>
-    <dt class="col-sm-2">Страховая сумма</dt>
-    <dd class="col-sm-10">@Model.insurance_amount.ToString("C")</dd>
-    <dt class="col-sm-2">Премия</dt>
+    <dt class="col-sm-2">№ договора</dt>
+    <dd class="col-sm-10">@Model.contract_id</dd>
+    <dt class="col-sm-2">Клиент ID</dt>
+    <dd class="col-sm-10">@Model.client_id</dd>
+    <dt class="col-sm-2">Продукт ID</dt>
+    <dd class="col-sm-10">@Model.product_id</dd>
+    <dt class="col-sm-2">Сотрудник ID</dt>
+    <dd class="col-sm-10">@Model.employee_id</dd>
+    <dt class="col-sm-2">Страх. премия</dt>
     <dd class="col-sm-10">@Model.insurance_premium.ToString("C")</dd>
+    <dt class="col-sm-2">Страх. сумма</dt>
+    <dd class="col-sm-10">@Model.insurance_amount.ToString("C")</dd>
     <dt class="col-sm-2">Дата начала</dt>
     <dd class="col-sm-10">@Model.start_date.ToShortDateString()</dd>
     <dt class="col-sm-2">Дата окончания</dt>
@@ -26,6 +28,6 @@
     <dd class="col-sm-10">@Model.status</dd>
 </dl>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.contract_id" class="btn btn-primary">Редактировать</a>
-    <a asp-action="Index" class="btn btn-secondary">Назад</a>
+    <a href="/Contracts/Edit/@Model.contract_id" class="btn btn-primary">Редактировать</a>
+    <a href="/Contracts" class="btn btn-secondary">Назад</a>
 </div>

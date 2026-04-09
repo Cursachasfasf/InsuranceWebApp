@@ -1,0 +1,42 @@
+﻿@model IEnumerable<InsuranceWebApp.Models.Payment>
+
+@{
+    ViewData["Title"] = "Платежи";
+    Layout = "_Layout";
+}
+
+<h1>Платежи</h1>
+<p>
+    <a href="/Payments/Create" class="btn btn-success">+ Добавить платёж</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Договор</th>
+                <th>Дата платежа</th>
+                <th>Сумма</th>
+                <th>Тип</th>
+                <th>Статус</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@(item.Contract?.Client?.Name) @(item.Contract?.Client?.Step_Name) (дог. №@item.contract_id)</td>
+                    <td>@item.payment_date.ToShortDateString()</td>
+                    <td>@item.amount.ToString("C")</td>
+                    <td>@item.payment_type</td>
+                    <td>@item.status</td>
+                    <td>
+                        <a href="/Payments/Edit/@item.payment_id" class="btn btn-sm btn-primary">Ред.</a>
+                        <a href="/Payments/Details/@item.payment_id" class="btn btn-sm btn-info">Дет.</a>
+                        <a href="/Payments/Delete/@item.payment_id" class="btn btn-sm btn-danger">Уд.</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -117,8 +117,32 @@ namespace InsuranceWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var contract = await _context.Contracts.FindAsync(id);
-            if (contract != null) _context.Contracts.Remove(contract);
+       
+            var contract = await _context.Contracts
+                .Include(c => c.Situations)
+                    .ThenInclude(s => s.Payouts)  
+                .Include(c => c.Payments)
+                .FirstOrDefaultAsync(c => c.contract_id == id);
+
+            if (contract == null) return NotFound();
+
+           
+            foreach (var situation in contract.Situations)
+            {
+                if (situation.Payouts != null && situation.Payouts.Any())
+                    _context.Payouts.RemoveRange(situation.Payouts);
+            }
+
+           
+            if (contract.Situations != null && contract.Situations.Any())
+                _context.InsuranceSituations.RemoveRange(contract.Situations);
+
+            if (contract.Payments != null && contract.Payments.Any())
+                _context.Payments.RemoveRange(contract.Payments);
+
+            
+            _context.Contracts.Remove(contract);
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

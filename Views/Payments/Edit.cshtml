@@ -1,0 +1,41 @@
+﻿@model InsuranceWebApp.Models.Payment
+
+@{
+    ViewData["Title"] = "Редактировать платёж";
+    Layout = "_Layout";
+}
+
+<h1>Редактировать платёж</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" action="/Payments/Edit/@Model.payment_id">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="payment_id" value="@Model.payment_id" />
+            <div class="form-group">
+                <label class="control-label">Договор</label>
+                <select name="contract_id" class="form-control" asp-items="@(new SelectList(ViewBag.Contracts, "contract_id", "contract_id", Model.contract_id))"></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Дата платежа</label>
+                <input name="payment_date" class="form-control" type="date" value="@Model.payment_date.ToString("yyyy-MM-dd")" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Сумма</label>
+                <input name="amount" class="form-control" step="0.01" value="@Model.amount" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Тип платежа</label>
+                <input name="payment_type" class="form-control" value="@Model.payment_type" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Статус</label>
+                <input name="status" class="form-control" value="@Model.status" required />
+            </div>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <a href="/Payments" class="btn btn-secondary">Назад</a>
+            </div>
+        </form>
+    </div>
+</div>

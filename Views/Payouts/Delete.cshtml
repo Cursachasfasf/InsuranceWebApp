@@ -1,0 +1,24 @@
+﻿@model InsuranceWebApp.Models.Payout
+
+@{
+    ViewData["Title"] = "Удалить выплату";
+    Layout = "_Layout";
+}
+
+<h1>Удалить выплату</h1>
+<div class="alert alert-danger">
+    <h3>Вы уверены, что хотите удалить эту выплату?</h3>
+</div>
+<dl class="row">
+    <dt class="col-sm-3">ID выплаты</dt>
+    <dd class="col-sm-9">@Model.payout_id</dd>
+    <dt class="col-sm-3">Страх. ситуация</dt>
+    <dd class="col-sm-9">@Model.situation_id</dd>
+    <dt class="col-sm-3">Сумма</dt>
+    <dd class="col-sm-9">@Model.payout_amount</dd>
+</dl>
+<form method="post" action="/Payouts/Delete/@Model.payout_id">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Удалить</button>
+    <a href="/Payouts" class="btn btn-secondary">Отмена</a>
+</form>

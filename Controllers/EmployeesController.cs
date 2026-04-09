@@ -14,14 +14,11 @@ namespace InsuranceWebApp.Controllers
             _context = context;
         }
 
-        // Список сотрудников
         public async Task<IActionResult> Index()
         {
-            var employees = await _context.Employees.ToListAsync();
-            return View(employees);
+            return View(await _context.Employees.ToListAsync());
         }
 
-        // Детали
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
@@ -30,13 +27,11 @@ namespace InsuranceWebApp.Controllers
             return View(employee);
         }
 
-        // Создать (GET)
         public IActionResult Create()
         {
             return View();
         }
 
-        // Создать (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Employee employee)
@@ -46,7 +41,6 @@ namespace InsuranceWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Редактировать (GET)
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -55,7 +49,6 @@ namespace InsuranceWebApp.Controllers
             return View(employee);
         }
 
-        // Редактировать (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Employee model)
@@ -69,13 +62,11 @@ namespace InsuranceWebApp.Controllers
             employee.phone = model.phone;
             employee.email = model.email;
             employee.position = model.position;
-            employee.hire_date = model.hire_date;
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        // Удалить (GET)
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -84,7 +75,6 @@ namespace InsuranceWebApp.Controllers
             return View(employee);
         }
 
-        // Удалить (POST)
         [HttpPost, ActionName("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

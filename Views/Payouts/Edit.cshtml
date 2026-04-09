@@ -1,0 +1,37 @@
+﻿@model InsuranceWebApp.Models.Payout
+
+@{
+    ViewData["Title"] = "Редактировать выплату";
+    Layout = "_Layout";
+}
+
+<h1>Редактировать выплату</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" action="/Payouts/Edit/@Model.payout_id">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="payout_id" value="@Model.payout_id" />
+            <div class="form-group">
+                <label class="control-label">ID страховой ситуации</label>
+                <input name="situation_id" class="form-control" type="number" value="@Model.situation_id" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Дата выплаты</label>
+                <input name="payout_date" class="form-control" type="date" value="@Model.payout_date.ToString("yyyy-MM-dd")" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Сумма выплаты</label>
+                <input name="payout_amount" class="form-control" step="0.01" value="@Model.payout_amount" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Способ оплаты</label>
+                <input name="payment_method" class="form-control" value="@Model.payment_method" required />
+            </div>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <a href="/Payouts" class="btn btn-secondary">Назад</a>
+            </div>
+        </form>
+    </div>
+</div>

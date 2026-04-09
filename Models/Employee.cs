@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace InsuranceWebApp.Models
 {
@@ -13,6 +12,6 @@ namespace InsuranceWebApp.Models
         public string phone { get; set; } = null!;
         public string? email { get; set; }
         public string position { get; set; } = null!;
-        public DateTime hire_date { get; set; } 
+       
     }
 }

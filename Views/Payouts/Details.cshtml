@@ -1,0 +1,25 @@
+﻿@model InsuranceWebApp.Models.Payout
+
+@{
+    ViewData["Title"] = "Детали выплаты";
+    Layout = "_Layout";
+}
+
+<h1>Детали выплаты</h1>
+<hr />
+<dl class="row">
+    <dt class="col-sm-3">ID выплаты</dt>
+    <dd class="col-sm-9">@Model.payout_id</dd>
+    <dt class="col-sm-3">Страховая ситуация</dt>
+    <dd class="col-sm-9">@Model.situation_id</dd>
+    <dt class="col-sm-3">Дата выплаты</dt>
+    <dd class="col-sm-9">@Model.payout_date.ToShortDateString()</dd>
+    <dt class="col-sm-3">Сумма</dt>
+    <dd class="col-sm-9">@Model.payout_amount.ToString("C")</dd>
+    <dt class="col-sm-3">Способ оплаты</dt>
+    <dd class="col-sm-9">@Model.payment_method</dd>
+</dl>
+<div>
+    <a href="/Payouts/Edit/@Model.payout_id" class="btn btn-primary">Редактировать</a>
+    <a href="/Payouts" class="btn btn-secondary">Назад</a>
+</div>

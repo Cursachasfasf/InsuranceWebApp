@@ -2,56 +2,52 @@
 
 @{
     ViewData["Title"] = "Редактировать договор";
+    Layout = "_Layout";
 }
 
 <h1>Редактировать договор</h1>
 <hr />
 <div class="row">
     <div class="col-md-6">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="contract_id" />
-            <!-- все поля как в Create, но без client_id? client_id нужен, но скрыть или сделать readonly? Лучше дать выбрать -->
+        <form method="post" action="/Contracts/Edit/@Model.contract_id">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="contract_id" value="@Model.contract_id" />
+
             <div class="form-group">
-                <label asp-for="Number" class="control-label"></label>
-                <input asp-for="Number" class="form-control" />
-                <span asp-validation-for="Number" class="text-danger"></span>
+                <label class="control-label">ID клиента</label>
+                <input name="client_id" class="form-control" type="number" value="@Model.client_id" required />
             </div>
             <div class="form-group">
-                <label asp-for="client_id" class="control-label">Клиент</label>
-                <select asp-for="client_id" class="form-control" asp-items="@(new SelectList(ViewBag.Clients, "client_id", "Name"))"></select>
+                <label class="control-label">ID продукта</label>
+                <input name="product_id" class="form-control" type="number" value="@Model.product_id" required />
             </div>
             <div class="form-group">
-                <label asp-for="product_id" class="control-label">Продукт</label>
-                <select asp-for="product_id" class="form-control" asp-items="@(new SelectList(ViewBag.Products, "product_id", "Name"))"></select>
+                <label class="control-label">ID сотрудника</label>
+                <input name="employee_id" class="form-control" type="number" value="@Model.employee_id" required />
             </div>
             <div class="form-group">
-                <label asp-for="employee_id" class="control-label">Сотрудник</label>
-                <select asp-for="employee_id" class="form-control" asp-items="@(new SelectList(ViewBag.Employees, "employee_id", "Name"))"></select>
+                <label class="control-label">Страховая премия</label>
+                <input name="insurance_premium" class="form-control" step="0.01" value="@Model.insurance_premium" required />
             </div>
             <div class="form-group">
-                <label asp-for="insurance_premium" class="control-label"></label>
-                <input asp-for="insurance_premium" class="form-control" />
+                <label class="control-label">Страховая сумма</label>
+                <input name="insurance_amount" class="form-control" step="0.01" value="@Model.insurance_amount" required />
             </div>
             <div class="form-group">
-                <label asp-for="insurance_amount" class="control-label"></label>
-                <input asp-for="insurance_amount" class="form-control" />
+                <label class="control-label">Дата начала</label>
+                <input name="start_date" class="form-control" type="date" value="@Model.start_date.ToString("yyyy-MM-dd")" required />
             </div>
             <div class="form-group">
-                <label asp-for="start_date" class="control-label"></label>
-                <input asp-for="start_date" class="form-control" type="date" />
+                <label class="control-label">Дата окончания</label>
+                <input name="end_date" class="form-control" type="date" value="@Model.end_date.ToString("yyyy-MM-dd")" required />
             </div>
             <div class="form-group">
-                <label asp-for="end_date" class="control-label"></label>
-                <input asp-for="end_date" class="form-control" type="date" />
-            </div>
-            <div class="form-group">
-                <label asp-for="status" class="control-label"></label>
-                <input asp-for="status" class="form-control" />
+                <label class="control-label">Статус</label>
+                <input name="status" class="form-control" value="@Model.status" required />
             </div>
             <div class="form-group mt-3">
-                <input type="submit" value="Сохранить" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Назад</a>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <a href="/Contracts" class="btn btn-secondary">Назад</a>
             </div>
         </form>
     </div>

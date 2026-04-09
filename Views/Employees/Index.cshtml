@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Сотрудники";
+    Layout = "_Layout";
 }
 
 <h1>Сотрудники</h1>
@@ -20,7 +21,6 @@
                 <th>Должность</th>
                 <th>Телефон</th>
                 <th>Email</th>
-                <th>Дата найма</th>
                 <th>Действия</th>
             </tr>
         </thead>
@@ -34,7 +34,6 @@
                     <td>@item.position</td>
                     <td>@item.phone</td>
                     <td>@item.email</td>
-                    <td>@item.hire_date.ToString("yyyy-MM-dd")</td>
                     <td>
                         <a href="/Employees/Edit/@item.employee_id" class="btn btn-sm btn-primary">Редактировать</a>
                         <a href="/Employees/Details/@item.employee_id" class="btn btn-sm btn-info">Детали</a>

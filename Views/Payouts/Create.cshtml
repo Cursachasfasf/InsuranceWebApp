@@ -1,0 +1,36 @@
+﻿@model InsuranceWebApp.Models.Payout
+
+@{
+    ViewData["Title"] = "Добавить выплату";
+    Layout = "_Layout";
+}
+
+<h1>Добавить страховую выплату</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" action="/Payouts/Create">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label class="control-label">ID страховой ситуации</label>
+                <input name="situation_id" class="form-control" type="number" required placeholder="Введите situation_id" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Дата выплаты</label>
+                <input name="payout_date" class="form-control" type="date" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Сумма выплаты</label>
+                <input name="payout_amount" class="form-control" step="0.01" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Способ оплаты</label>
+                <input name="payment_method" class="form-control" required />
+            </div>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Создать</button>
+                <a href="/Payouts" class="btn btn-secondary">Назад</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+﻿@model InsuranceWebApp.Models.Payment
+
+@{
+    ViewData["Title"] = "Детали платежа";
+    Layout = "_Layout";
+}
+
+<h1>Детали платежа</h1>
+<hr />
+<dl class="row">
+    <dt class="col-sm-2">Договор</dt>
+    <dd class="col-sm-10">@Model.contract_id (клиент: @Model.Contract?.Client?.Name @Model.Contract?.Client?.Step_Name)</dd>
+    <dt class="col-sm-2">Дата платежа</dt>
+    <dd class="col-sm-10">@Model.payment_date.ToShortDateString()</dd>
+    <dt class="col-sm-2">Сумма</dt>
+    <dd class="col-sm-10">@Model.amount.ToString("C")</dd>
+    <dt class="col-sm-2">Тип</dt>
+    <dd class="col-sm-10">@Model.payment_type</dd>
+    <dt class="col-sm-2">Статус</dt>
+    <dd class="col-sm-10">@Model.status</dd>
+</dl>
+<div>
+    <a href="/Payments/Edit/@Model.payment_id" class="btn btn-primary">Редактировать</a>
+    <a href="/Payments" class="btn btn-secondary">Назад</a>
+</div>

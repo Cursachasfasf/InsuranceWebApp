@@ -1,0 +1,26 @@
+﻿@model InsuranceWebApp.Models.InsuranceProduct
+
+@{
+    ViewData["Title"] = "Детали продукта";
+    Layout = "_Layout";
+}
+
+<h1>Детали продукта</h1>
+<dl class="row">
+    <dt class="col-sm-2">Название</dt>
+    <dd class="col-sm-10">@Model.Name</dd>
+    <dt class="col-sm-2">Тип</dt>
+    <dd class="col-sm-10">@Model.insurance_type</dd>
+    <dt class="col-sm-2">Описание</dt>
+    <dd class="col-sm-10">@Model.description</dd>
+    <dt class="col-sm-2">Тариф</dt>
+    <dd class="col-sm-10">@Model.tariff_rate%</dd>
+    <dt class="col-sm-2">Мин. срок</dt>
+    <dd class="col-sm-10">@Model.min_term_days дн.</dd>
+    <dt class="col-sm-2">Макс. срок</dt>
+    <dd class="col-sm-10">@Model.max_term_days дн.</dd>
+</dl>
+<div>
+    <a href="/InsuranceProducts/Edit/@Model.product_id" class="btn btn-primary">Редактировать</a>
+    <a href="/InsuranceProducts" class="btn btn-secondary">Назад</a>
+</div>

@@ -1,0 +1,26 @@
+﻿@model InsuranceWebApp.Models.InsuranceProduct
+
+@{
+    ViewData["Title"] = "Добавить продукт";
+    Layout = "_Layout";
+}
+
+<h1>Добавить страховой продукт</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" action="/InsuranceProducts/Create">
+            @Html.AntiForgeryToken()
+            <div class="form-group"><label>Название</label><input name="Name" class="form-control" required /></div>
+            <div class="form-group"><label>Тип страхования</label><input name="insurance_type" class="form-control" required /></div>
+            <div class="form-group"><label>Описание</label><textarea name="description" class="form-control"></textarea></div>
+            <div class="form-group"><label>Тариф (%)</label><input name="tariff_rate" class="form-control" step="0.01" required /></div>
+            <div class="form-group"><label>Мин. срок (дней)</label><input name="min_term_days" class="form-control" type="number" required /></div>
+            <div class="form-group"><label>Макс. срок (дней)</label><input name="max_term_days" class="form-control" type="number" required /></div>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Создать</button>
+                <a href="/InsuranceProducts" class="btn btn-secondary">Назад</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Детали сотрудника";
+    Layout = "_Layout";
 }
 
 <h1>Детали сотрудника</h1>
@@ -25,9 +26,6 @@
 
         <dt class="col-sm-3">Email</dt>
         <dd class="col-sm-9">@(Model.email ?? "—")</dd>
-
-        <dt class="col-sm-3">Дата найма</dt>
-        <dd class="col-sm-9">@Model.hire_date.ToString("yyyy-MM-dd")</dd>
     </dl>
 </div>
 

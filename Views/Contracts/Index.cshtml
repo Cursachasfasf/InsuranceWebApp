@@ -1,112 +1,50 @@
-﻿@model IEnumerable<InsuranceWebApp.Models.Client>
+﻿@model IEnumerable<InsuranceWebApp.Models.Contract>
 
 @{
-    ViewData["Title"] = "Клиенты";
+    ViewData["Title"] = "Договоры";
+    Layout = "_Layout";
 }
 
-<style>
-    /* Принудительные стили для кнопок – перебивают любые глобальные стили */
-    .btn-custom {
-        display: inline-block !important;
-        padding: 6px 12px !important;
-        margin: 4px 4px !important;
-        font-size: 14px !important;
-        font-weight: normal !important;
-        line-height: 1.5 !important;
-        text-align: center !important;
-        text-decoration: none !important;
-        cursor: pointer !important;
-        border-radius: 4px !important;
-        border: 1px solid transparent !important;
-        color: #fff !important;
-        background-color: #0d6efd !important;
-        border-color: #0d6efd !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-    }
-
-    .btn-custom-primary {
-        background-color: #0d6efd !important;
-        border-color: #0d6efd !important;
-    }
-
-    .btn-custom-info {
-        background-color: #0dcaf0 !important;
-        border-color: #0dcaf0 !important;
-        color: #000 !important;
-    }
-
-    .btn-custom-danger {
-        background-color: #dc3545 !important;
-        border-color: #dc3545 !important;
-    }
-
-    .btn-custom-success {
-        background-color: #198754 !important;
-        border-color: #198754 !important;
-    }
-
-    .btn-custom-sm {
-        padding: 4px 8px !important;
-        font-size: 12px !important;
-    }
-
-    .btn-custom:hover {
-        filter: brightness(0.9) !important;
-        cursor: pointer !important;
-    }
-    /* Дополнительная защита от блокировки кликов */
-    a, button {
-        pointer-events: auto !important;
-    }
-</style>
-
-<h1>Клиенты</h1>
-
+<h1>Договоры</h1>
 <p>
-    <a asp-action="Create" class="btn-custom btn-custom-success">+ Добавить клиента</a>
+    <a href="/Contracts/Create" class="btn btn-success">+ Добавить договор</a>
 </p>
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Отчество</th>
-            <th>Телефон</th>
-            <th>Адрес</th>
-            <th>Email</th>
-            <th>Действия</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
             <tr>
-                <td>@item.Name</td>
-                <td>@item.Step_Name</td>
-                <td>@item.S_Step_Name</td>
-                <td>@item.phone</td>
-                <td>@item.address</td>
-                <td>@item.email</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.client_id" class="btn-custom btn-custom-primary btn-custom-sm">✏️ Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.client_id" class="btn-custom btn-custom-info btn-custom-sm">📄 Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.client_id" class="btn-custom btn-custom-danger btn-custom-sm">🗑️ Delete</a>
-                </td>
+                <th>№ договора</th>
+                <th>Клиент ID</th>
+                <th>Продукт ID</th>
+                <th>Сотрудник ID</th>
+                <th>Страх. сумма</th>
+                <th>Премия</th>
+                <th>Дата начала</th>
+                <th>Дата конца</th>
+                <th>Статус</th>
+                <th>Действия</th>
             </tr>
-        }
-    </tbody>
-</table>
-
-<script>
-    // Дополнительный скрипт, который принудительно убирает любые блокировки
-    document.addEventListener('DOMContentLoaded', function() {
-        var allLinks = document.querySelectorAll('a');
-        allLinks.forEach(function(link) {
-            link.removeAttribute('disabled');
-            link.style.pointerEvents = 'auto';
-            link.style.opacity = '1';
-        });
-    });
-</script>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.contract_id</td>
+                    <td>@item.client_id</td>
+                    <td>@item.product_id</td>
+                    <td>@item.employee_id</td>
+                    <td>@item.insurance_amount.ToString("C")</td>
+                    <td>@item.insurance_premium.ToString("C")</td>
+                    <td>@item.start_date.ToShortDateString()</td>
+                    <td>@item.end_date.ToShortDateString()</td>
+                    <td>@item.status</td>
+                    <td>
+                        <a href="/Contracts/Edit/@item.contract_id" class="btn btn-sm btn-primary">Ред.</a>
+                        <a href="/Contracts/Details/@item.contract_id" class="btn btn-sm btn-info">Дет.</a>
+                        <a href="/Contracts/Delete/@item.contract_id" class="btn btn-sm btn-danger">Уд.</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

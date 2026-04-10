@@ -1,0 +1,47 @@
+﻿@model InsuranceWebApp.Models.InsuranceSituation
+
+@{
+    ViewData["Title"] = "Добавить страховую ситуацию";
+}
+
+<h1>Добавить страховую ситуацию</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" action="/InsuranceSituations/Create">
+            @Html.AntiForgeryToken()
+            <div class="form-group mb-3">
+                <label class="form-label">ID договора</label>
+                <input name="contract_id" class="form-control" type="number" required />
+            </div>
+            <div class="form-group mb-3">
+                <label class="form-label">ID сотрудника</label>
+                <input name="employee_id" class="form-control" type="number" required />
+            </div>
+            <div class="form-group mb-3">
+                <label class="form-label">Статус</label>
+                <input name="status" class="form-control" required />
+            </div>
+            <div class="form-group mb-3">
+                <label class="form-label">Сумма ущерба</label>
+                <input name="damage_amount" class="form-control" step="0.01" required />
+            </div>
+            <div class="form-group mb-3">
+                <label class="form-label">Описание</label>
+                <textarea name="description" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-group mb-3">
+                <label class="form-label">Дата инцидента</label>
+                <input name="incident_date" class="form-control" type="date" required />
+            </div>
+            <div class="form-group mb-3">
+                <label class="form-label">Дата заявления</label>
+                <input name="claim_date" class="form-control" type="date" required />
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary rounded-pill px-4">Создать</button>
+                <a href="/InsuranceSituations" class="btn btn-secondary rounded-pill px-4">Назад</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -2,44 +2,55 @@
 
 @{
     ViewData["Title"] = "Редактировать клиента";
-    Layout = "_Layout";
 }
 
 <h1>Редактировать клиента</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" action="/Clients/Edit/@Model.client_id">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="client_id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<form method="post" action="/Clients/Edit/@Model.client_id">
-    @Html.AntiForgeryToken()
-    <input type="hidden" name="client_id" value="@Model.client_id" />
-
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Имя</label>
-            <input name="Name" value="@Model.Name" class="form-control" required />
-        </div>
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Фамилия</label>
-            <input name="Step_Name" value="@Model.Step_Name" class="form-control" required />
-        </div>
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Отчество</label>
-            <input name="S_Step_Name" value="@Model.S_Step_Name" class="form-control" />
-        </div>
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Телефон</label>
-            <input name="phone" value="@Model.phone" class="form-control" required />
-        </div>
-        <div class="col-md-12 mb-3">
-            <label class="form-label">Адрес</label>
-            <input name="address" value="@Model.address" class="form-control" required />
-        </div>
-        <div class="col-md-12 mb-3">
-            <label class="form-label">Email</label>
-            <input name="email" value="@Model.email" class="form-control" type="email" />
-        </div>
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="form-label">Имя</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Step_Name" class="form-label">Фамилия</label>
+                <input asp-for="Step_Name" class="form-control" />
+                <span asp-validation-for="Step_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="S_Step_Name" class="form-label">Отчество</label>
+                <input asp-for="S_Step_Name" class="form-control" />
+                <span asp-validation-for="S_Step_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="phone" class="form-label">Телефон</label>
+                <input asp-for="phone" class="form-control" />
+                <span asp-validation-for="phone" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="address" class="form-label">Адрес</label>
+                <input asp-for="address" class="form-control" />
+                <span asp-validation-for="address" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="email" class="form-label">Email</label>
+                <input asp-for="email" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary rounded-pill px-4">Сохранить</button>
+                <a href="/Clients" class="btn btn-secondary rounded-pill px-4">Назад</a>
+            </div>
+        </form>
     </div>
+</div>
 
-    <div class="mt-3">
-        <button type="submit" class="btn btn-primary">Сохранить</button>
-        <a href="/Clients" class="btn btn-secondary">Назад</a>
-    </div>
-</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

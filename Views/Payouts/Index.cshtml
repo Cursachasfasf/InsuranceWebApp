@@ -2,19 +2,20 @@
 
 @{
     ViewData["Title"] = "Выплаты";
-    Layout = "_Layout";
 }
 
 <h1>Страховые выплаты</h1>
 <p>
-    <a href="/Payouts/Create" class="btn btn-success">+ Добавить выплату</a>
+    <a href="/Payouts/Create" class="btn btn-success rounded-pill px-4">
+        <i class="fas fa-plus me-1"></i> Добавить выплату
+    </a>
 </p>
 <div class="table-responsive">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-custom">
         <thead>
             <tr>
                 <th>ID выплаты</th>
-                <th>Страх. ситуация (ID)</th>
+                <th>Страховая ситуация</th>
                 <th>Дата выплаты</th>
                 <th>Сумма</th>
                 <th>Способ оплаты</th>
@@ -26,15 +27,31 @@
             {
                 <tr>
                     <td>@item.payout_id</td>
-                    <td>@item.situation_id</td>
+                    <td>
+                        @if (item.Situation != null)
+                        {
+                            <strong>№@item.situation_id</strong><br />
+                            <small>@item.Situation.description</small>
+                        }
+                        else
+                        {
+                            @item.situation_id
+                        }
+                     </td>
                     <td>@item.payout_date.ToShortDateString()</td>
                     <td>@item.payout_amount.ToString("C")</td>
                     <td>@item.payment_method</td>
                     <td>
-                        <a href="/Payouts/Edit/@item.payout_id" class="btn btn-sm btn-primary">Ред.</a>
-                        <a href="/Payouts/Details/@item.payout_id" class="btn btn-sm btn-info">Дет.</a>
-                        <a href="/Payouts/Delete/@item.payout_id" class="btn btn-sm btn-danger">Уд.</a>
-                    </td>
+                        <a href="/Payouts/Edit/@item.payout_id" class="btn btn-action btn-edit">
+                            <i class="fas fa-edit"></i> Редактировать
+                        </a>
+                        <a href="/Payouts/Details/@item.payout_id" class="btn btn-action btn-details">
+                            <i class="fas fa-info-circle"></i> Детали
+                        </a>
+                        <a href="/Payouts/Delete/@item.payout_id" class="btn btn-action btn-delete">
+                            <i class="fas fa-trash-alt"></i> Удалить
+                        </a>
+                     </td>
                 </tr>
             }
         </tbody>

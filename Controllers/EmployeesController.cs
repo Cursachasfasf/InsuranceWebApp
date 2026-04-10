@@ -2,9 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using InsuranceWebApp.Models;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InsuranceWebApp.Controllers
 {
+    [Authorize]
     public class EmployeesController : Controller
     {
         private readonly InsuranceDBContext _context;
@@ -34,11 +36,15 @@ namespace InsuranceWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Employee employee)
+        public async Task<IActionResult> Create([Bind("Name,Step_Name,S_Step_Name,phone,email,position")] Employee employee)
         {
-            _context.Employees.Add(employee);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                _context.Employees.Add(employee);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(employee);
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -51,20 +57,33 @@ namespace InsuranceWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Employee model)
+        public async Task<IActionResult> Edit(int id, [Bind("employee_id,Name,Step_Name,S_Step_Name,phone,email,position")] Employee model)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee == null) return NotFound();
+            if (id != model.employee_id) return NotFound();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var employee = await _context.Employees.FindAsync(id);
+                    if (employee == null) return NotFound();
 
-            employee.Name = model.Name;
-            employee.Step_Name = model.Step_Name;
-            employee.S_Step_Name = model.S_Step_Name;
-            employee.phone = model.phone;
-            employee.email = model.email;
-            employee.position = model.position;
+                    employee.Name = model.Name;
+                    employee.Step_Name = model.Step_Name;
+                    employee.S_Step_Name = model.S_Step_Name;
+                    employee.phone = model.phone;
+                    employee.email = model.email;
+                    employee.position = model.position;
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_context.Employees.Any(e => e.employee_id == id)) return NotFound();
+                    else throw;
+                }
+            }
+            return View(model);
         }
 
         public async Task<IActionResult> Delete(int? id)

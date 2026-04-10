@@ -2,17 +2,16 @@
 
 @{
     ViewData["Title"] = "Клиенты";
-    Layout = "_Layout";
 }
 
 <h1>Клиенты</h1>
-
 <p>
-    <a href="/Clients/Create" class="btn btn-success">+ Добавить клиента</a>
+    <a href="/Clients/Create" class="btn btn-success rounded-pill px-4">
+        <i class="fas fa-plus me-1"></i> Добавить клиента
+    </a>
 </p>
-
 <div class="table-responsive">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-custom">
         <thead>
             <tr>
                 <th>Имя</th>
@@ -30,17 +29,22 @@
                 <tr>
                     <td>@item.Name</td>
                     <td>@item.Step_Name</td>
-                    <td>@item.S_Step_Name</td>
+                    <td>@(item.S_Step_Name ?? "—")</td>
                     <td>@item.phone</td>
                     <td>@item.address</td>
                     <td>@item.email</td>
                     <td>
-                        <a href="/Clients/Edit/@item.client_id" class="btn btn-sm btn-primary">Редактировать</a>
-                        <a href="/Clients/Details/@item.client_id" class="btn btn-sm btn-info">Детали</a>
-                        <a href="/Clients/Delete/@item.client_id" class="btn btn-sm btn-danger">Удалить</a>
-                    </td>
+                        <a href="/Clients/Edit/@item.client_id" class="btn btn-action btn-edit">
+                            <i class="fas fa-edit"></i> Редактировать
+                        </a>
+                        <a href="/Clients/Details/@item.client_id" class="btn btn-action btn-details">
+                            <i class="fas fa-info-circle"></i> Детали
+                        </a>
+                        <a href="/Clients/Delete/@item.client_id" class="btn btn-action btn-delete">
+                            <i class="fas fa-trash-alt"></i> Удалить
+                        </a>
+                     </td>
                 </tr>
-
             }
         </tbody>
     </table>

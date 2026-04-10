@@ -1,0 +1,23 @@
+﻿@model InsuranceWebApp.Models.InsuranceSituation
+
+@{
+    ViewData["Title"] = "Удалить страховую ситуацию";
+}
+
+<h1>Удалить страховую ситуацию</h1>
+<div class="alert alert-danger">
+    <h3>Вы уверены, что хотите удалить эту ситуацию?</h3>
+</div>
+<dl class="row">
+    <dt class="col-sm-3">ID ситуации</dt>
+    <dd class="col-sm-9">@Model.situation_id</dd>
+    <dt class="col-sm-3">Договор ID</dt>
+    <dd class="col-sm-9">@Model.contract_id</dd>
+    <dt class="col-sm-3">Сумма ущерба</dt>
+    <dd class="col-sm-9">@Model.damage_amount.ToString("C")</dd>
+</dl>
+<form method="post" action="/InsuranceSituations/Delete/@Model.situation_id">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger rounded-pill px-4">Удалить</button>
+    <a href="/InsuranceSituations" class="btn btn-secondary rounded-pill px-4">Отмена</a>
+</form>

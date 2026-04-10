@@ -1,66 +1,66 @@
 ﻿@{
     ViewData["Title"] = "Главная";
-    Layout = "_Layout";
 }
 
-<div style="text-align: center; padding: 1rem 0 2rem 0;">
-    <h1>Добро пожаловать в СМК Страхование</h1>
-    <p class="lead">Управление клиентами, договорами, сотрудниками и страховыми продуктами</p>
-</div>
+<div class="row">
+    <!-- Основной контент: информация о компании + новости -->
+    <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+            <h2 class="mb-3" style="color:#b96b6b;"><i class="fas fa-info-circle me-2"></i>О компании СМК Страхование</h2>
+            <p>СМК Страхование — надёжный партнёр на рынке страховых услуг с 2010 года. Мы предлагаем полный спектр страховых продуктов: от ОСАГО до страхования жизни и имущества.</p>
+            <p>Наша миссия — защитить ваши интересы и обеспечить финансовую безопасность. Более 50 000 клиентов доверяют нам.</p>
+            <hr />
+            <div class="row mt-3">
+                <div class="col-sm-6">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fas fa-handshake fa-2x" style="color:#b96b6b;"></i>
+                        <div><strong>Индивидуальный подход</strong><br />Подберём оптимальный тариф</div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fas fa-clock fa-2x" style="color:#b96b6b;"></i>
+                        <div><strong>Быстрые выплаты</strong><br />Средний срок – 3 дня</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="row g-4">
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm" style="border-radius: 24px; border: none;">
-            <div class="card-body text-center">
-                <h3 class="card-title">👥 Клиенты</h3>
-                <p class="card-text">Просмотр, добавление, редактирование и удаление клиентов.</p>
-                <a href="/Clients" class="btn btn-primary">Перейти →</a>
+        <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+            <h3 class="mb-3" style="color:#b96b6b;"><i class="fas fa-newspaper me-2"></i>Последние новости и изменения</h3>
+            <ul class="list-unstyled">
+                <li class="mb-3 pb-2 border-bottom">
+                    <i class="fas fa-calendar-alt me-2 text-muted"></i> <strong>15 марта 2025</strong><br />
+                    Запущена новая услуга – онлайн-оформление ОСАГО за 5 минут.
+                </li>
+                <li class="mb-3 pb-2 border-bottom">
+                    <i class="fas fa-calendar-alt me-2 text-muted"></i> <strong>1 марта 2025</strong><br />
+                    Расширен список страховых продуктов: добавили страхование киберрисков.
+                </li>
+                <li class="mb-3 pb-2 border-bottom">
+                    <i class="fas fa-calendar-alt me-2 text-muted"></i> <strong>20 февраля 2025</strong><br />
+                    Обновили мобильное приложение – теперь доступна авторизация по биометрии.
+                </li>
+                <li class="mb-3 pb-2 border-bottom">
+                    <i class="fas fa-calendar-alt me-2 text-muted"></i> <strong>5 февраля 2025</strong><br />
+                    Провели оптимизацию работы с клиентами – среднее время ответа сокращено до 2 минут.
+                </li>
+            </ul>
+            <div class="mt-2 text-end">
+                <a href="#" class="btn btn-sm btn-outline-soft">Все новости →</a>
             </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm" style="border-radius: 24px; border: none;">
-            <div class="card-body text-center">
-                <h3 class="card-title">👨‍💼 Сотрудники</h3>
-                <p class="card-text">Управление сотрудниками компании.</p>
-                <a href="/Employees" class="btn btn-primary">Перейти →</a>
+
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <div class="card border-0 shadow-sm rounded-4 p-4">
+                <h3 class="mb-3" style="color:#b96b6b;"><i class="fas fa-user-shield me-2"></i>Мои данные (администратор)</h3>
+                <p><strong>Email:</strong> @User.Identity.Name</p>
+                <p><strong>Роль:</strong> Администратор</p>
+                <p><strong>Полномочия:</strong> Управление пользователями, просмотр и редактирование всех данных.</p>
+                <hr />
+                <p><i class="fas fa-info-circle"></i> Вы можете назначать роли другим пользователям через раздел <strong>«Управление ролями»</strong> в боковом меню.</p>
             </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm" style="border-radius: 24px; border: none;">
-            <div class="card-body text-center">
-                <h3 class="card-title">📄 Договоры</h3>
-                <p class="card-text">Учет заключенных договоров страхования.</p>
-                <a href="/Contracts" class="btn btn-primary">Перейти →</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm" style="border-radius: 24px; border: none;">
-            <div class="card-body text-center">
-                <h3 class="card-title">📦 Страховые продукты</h3>
-                <p class="card-text">Список доступных страховых продуктов.</p>
-                <a href="/InsuranceProducts" class="btn btn-primary">Перейти →</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm" style="border-radius: 24px; border: none;">
-            <div class="card-body text-center">
-                <h3 class="card-title">💰 Платежи</h3>
-                <p class="card-text">История платежей по договорам.</p>
-                <a href="/Payments" class="btn btn-primary">Перейти →</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm" style="border-radius: 24px; border: none;">
-            <div class="card-body text-center">
-                <h3 class="card-title">💸 Выплаты</h3>
-                <p class="card-text">Данные о страховых выплатах.</p>
-                <a href="/Payouts" class="btn btn-primary">Перейти →</a>
-            </div>
-        </div>
+        }
     </div>
 </div>

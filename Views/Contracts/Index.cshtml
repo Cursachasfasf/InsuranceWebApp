@@ -2,21 +2,22 @@
 
 @{
     ViewData["Title"] = "Договоры";
-    Layout = "_Layout";
 }
 
 <h1>Договоры</h1>
 <p>
-    <a href="/Contracts/Create" class="btn btn-success">+ Добавить договор</a>
+    <a href="/Contracts/Create" class="btn btn-success rounded-pill px-4">
+        <i class="fas fa-plus me-1"></i> Добавить договор
+    </a>
 </p>
 <div class="table-responsive">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-custom">
         <thead>
             <tr>
                 <th>№ договора</th>
-                <th>Клиент ID</th>
-                <th>Продукт ID</th>
-                <th>Сотрудник ID</th>
+                <th>Клиент</th>
+                <th>Продукт</th>
+                <th>Сотрудник</th>
                 <th>Страх. сумма</th>
                 <th>Премия</th>
                 <th>Дата начала</th>
@@ -30,19 +31,25 @@
             {
                 <tr>
                     <td>@item.contract_id</td>
-                    <td>@item.client_id</td>
-                    <td>@item.product_id</td>
-                    <td>@item.employee_id</td>
+                    <td>@(item.Client?.Name + " " + item.Client?.Step_Name)</td>
+                    <td>@(item.Product?.Name)</td>
+                    <td>@(item.Employee?.Name + " " + item.Employee?.Step_Name)</td>
                     <td>@item.insurance_amount.ToString("C")</td>
                     <td>@item.insurance_premium.ToString("C")</td>
                     <td>@item.start_date.ToShortDateString()</td>
                     <td>@item.end_date.ToShortDateString()</td>
                     <td>@item.status</td>
                     <td>
-                        <a href="/Contracts/Edit/@item.contract_id" class="btn btn-sm btn-primary">Ред.</a>
-                        <a href="/Contracts/Details/@item.contract_id" class="btn btn-sm btn-info">Дет.</a>
-                        <a href="/Contracts/Delete/@item.contract_id" class="btn btn-sm btn-danger">Уд.</a>
-                    </td>
+                        <a href="/Contracts/Edit/@item.contract_id" class="btn btn-action btn-edit">
+                            <i class="fas fa-edit"></i> Редактировать
+                        </a>
+                        <a href="/Contracts/Details/@item.contract_id" class="btn btn-action btn-details">
+                            <i class="fas fa-info-circle"></i> Детали
+                        </a>
+                        <a href="/Contracts/Delete/@item.contract_id" class="btn btn-action btn-delete">
+                            <i class="fas fa-trash-alt"></i> Удалить
+                        </a>
+                     </td>
                 </tr>
             }
         </tbody>

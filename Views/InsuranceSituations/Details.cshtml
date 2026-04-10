@@ -1,0 +1,37 @@
+﻿@model InsuranceWebApp.Models.InsuranceSituation
+
+@{
+    ViewData["Title"] = "Детали страховой ситуации";
+}
+
+<h1>Детали страховой ситуации</h1>
+<hr />
+<dl class="row">
+    <dt class="col-sm-3">ID ситуации</dt>
+    <dd class="col-sm-9">@Model.situation_id</dd>
+
+    <dt class="col-sm-3">Договор ID</dt>
+    <dd class="col-sm-9">@Model.contract_id</dd>
+
+    <dt class="col-sm-3">Сотрудник ID</dt>
+    <dd class="col-sm-9">@Model.employee_id</dd>
+
+    <dt class="col-sm-3">Статус</dt>
+    <dd class="col-sm-9">@Model.status</dd>
+
+    <dt class="col-sm-3">Сумма ущерба</dt>
+    <dd class="col-sm-9">@Model.damage_amount.ToString("C")</dd>
+
+    <dt class="col-sm-3">Описание</dt>
+    <dd class="col-sm-9">@Model.description</dd>
+
+    <dt class="col-sm-3">Дата инцидента</dt>
+    <dd class="col-sm-9">@Model.incident_date.ToShortDateString()</dd>
+
+    <dt class="col-sm-3">Дата заявления</dt>
+    <dd class="col-sm-9">@Model.claim_date.ToShortDateString()</dd>
+</dl>
+<div class="mt-3">
+    <a href="/InsuranceSituations/Edit/@Model.situation_id" class="btn btn-primary rounded-pill px-4">Редактировать</a>
+    <a href="/InsuranceSituations" class="btn btn-secondary rounded-pill px-4">Назад</a>
+</div>

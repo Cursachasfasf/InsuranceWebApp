@@ -1,0 +1,45 @@
+﻿@model IEnumerable<InsuranceWebApp.Models.InsuranceSituation>
+
+@{
+    ViewData["Title"] = "Страховые ситуации";
+}
+
+<h1>Страховые ситуации</h1>
+<p>
+    <a href="/InsuranceSituations/Create" class="btn btn-success rounded-pill px-4">
+        <i class="fas fa-plus me-1"></i> Добавить ситуацию
+    </a>
+</p>
+<div class="table-responsive">
+    <table class="table table-bordered table-custom">
+        <thead>
+            <tr>
+                <th>ID ситуации</th><th>Договор ID</th><th>Сотрудник ID</th><th>Статус</th><th>Ущерб</th><th>Дата инцидента</th><th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.situation_id</td>
+                    <td>@item.contract_id</td>
+                    <td>@item.employee_id</td>
+                    <td>@item.status</td>
+                    <td>@item.damage_amount.ToString("C")</td>
+                    <td>@item.incident_date.ToShortDateString()</td>
+                    <td>
+                        <a href="/InsuranceSituations/Edit/@item.situation_id" class="btn btn-action btn-edit">
+                            <i class="fas fa-edit"></i> Редактировать
+                        </a>
+                        <a href="/InsuranceSituations/Details/@item.situation_id" class="btn btn-action btn-details">
+                            <i class="fas fa-info-circle"></i> Детали
+                        </a>
+                        <a href="/InsuranceSituations/Delete/@item.situation_id" class="btn btn-action btn-delete">
+                            <i class="fas fa-trash-alt"></i> Удалить
+                        </a>
+                     </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

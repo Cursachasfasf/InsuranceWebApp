@@ -1,0 +1,33 @@
+﻿@model List<InsuranceWebApp.Controllers.UserInfoViewModel>
+
+@{
+    ViewData["Title"] = "Пользователи системы";
+}
+
+<h1>Все зарегистрированные пользователи</h1>
+<div class="table-responsive">
+    <table class="table table-bordered table-custom">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>ФИО</th>
+                <th>Роль(и)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Email</td>
+                    <td>@user.FullName</td>
+                    <td>@string.Join(", ", user.Roles)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="mt-3">
+    <a href="/" class="btn btn-secondary rounded-pill px-4">
+        <i class="fas fa-home me-2"></i> На главную
+    </a>
+</div>

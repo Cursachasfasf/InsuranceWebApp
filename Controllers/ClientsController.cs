@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using InsuranceWebApp.Models;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InsuranceWebApp.Controllers
 {
+    [Authorize]
     public class ClientsController : Controller
     {
         private readonly InsuranceDBContext _context;
@@ -35,11 +37,15 @@ namespace InsuranceWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Client client)
+        public async Task<IActionResult> Create([Bind("Name,Step_Name,S_Step_Name,phone,address,email")] Client client)
         {
-            _context.Clients.Add(client);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                _context.Clients.Add(client);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(client);
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -52,20 +58,33 @@ namespace InsuranceWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Client model)
+        public async Task<IActionResult> Edit(int id, [Bind("client_id,Name,Step_Name,S_Step_Name,phone,address,email")] Client model)
         {
-            var client = await _context.Clients.FindAsync(id);
-            if (client == null) return NotFound();
+            if (id != model.client_id) return NotFound();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var client = await _context.Clients.FindAsync(id);
+                    if (client == null) return NotFound();
 
-            client.Name = model.Name;
-            client.Step_Name = model.Step_Name;
-            client.S_Step_Name = model.S_Step_Name;
-            client.phone = model.phone;
-            client.address = model.address;
-            client.email = model.email;
+                    client.Name = model.Name;
+                    client.Step_Name = model.Step_Name;
+                    client.S_Step_Name = model.S_Step_Name;
+                    client.phone = model.phone;
+                    client.address = model.address;
+                    client.email = model.email;
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_context.Clients.Any(e => e.client_id == id)) return NotFound();
+                    else throw;
+                }
+            }
+            return View(model);
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -80,7 +99,6 @@ namespace InsuranceWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            // Загружаем клиента и все связанные сущности через Include
             var client = await _context.Clients
                 .Include(c => c.Contracts)
                     .ThenInclude(ct => ct.Payments)
@@ -91,7 +109,6 @@ namespace InsuranceWebApp.Controllers
 
             if (client == null) return NotFound();
 
-            // Удаляем все выплаты (Payout) через страховые ситуации
             foreach (var contract in client.Contracts)
             {
                 foreach (var situation in contract.Situations)
@@ -99,18 +116,14 @@ namespace InsuranceWebApp.Controllers
                     if (situation.Payouts != null && situation.Payouts.Any())
                         _context.Payouts.RemoveRange(situation.Payouts);
                 }
-                // Удаляем страховые ситуации
                 if (contract.Situations != null && contract.Situations.Any())
                     _context.InsuranceSituations.RemoveRange(contract.Situations);
-                // Удаляем платежи
                 if (contract.Payments != null && contract.Payments.Any())
                     _context.Payments.RemoveRange(contract.Payments);
             }
-            // Удаляем договоры
             if (client.Contracts != null && client.Contracts.Any())
                 _context.Contracts.RemoveRange(client.Contracts);
 
-            // Наконец, удаляем клиента
             _context.Clients.Remove(client);
             await _context.SaveChangesAsync();
 

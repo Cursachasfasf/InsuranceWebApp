@@ -55,9 +55,7 @@ namespace InsuranceWebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Clients = _context.Clients.ToList();
-            ViewBag.Products = _context.InsuranceProducts.ToList();
-            ViewBag.Employees = _context.Employees.ToList();
+           
             return View(contract);
         }
 
